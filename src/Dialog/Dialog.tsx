@@ -1,15 +1,9 @@
 'use client';
+
 import React, { MouseEventHandler, useState } from 'react';
-import Button from '@mui/material/Button';
-import {
-  Dialog as MUIDialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  IconButton,
-} from '@mui/material';
-import { Close } from '@mui/icons-material';
+import { IoIosClose } from 'react-icons/io';
+import { Button } from '@/components/ui/button';
+import { Dialog as CnDialog, DialogContent, DialogFooter, DialogTitle } from '@/components/ui/dialog';
 
 export type CommonDialogProps = {
   onClose?: () => void;
@@ -49,44 +43,40 @@ const Dialog: React.FC<DialogProps> = ({
         }}
         {...ButtonProps}
       />
-      <MUIDialog
-        open={dialogOpen}
-        onClose={handleClose}
-        sx={{ position: 'fixed' }}
-        PaperProps={{ sx: { py: '1rem', ...sx } }}
-      >
-        <IconButton onClick={handleClose} sx={{ position: 'absolute', top: '0.2rem', right: '0.2rem' }}>
-          <Close />
-        </IconButton>
-        {title && (
-          <DialogTitle id='dialog-title' sx={{ textAlign: 'center' }}>
-            {title}
-          </DialogTitle>
-        )}
-        <DialogContent sx={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          {typeof content === 'string' ? (
-            <DialogContentText id='dialog-description' textAlign='center'>
-              {content}
-            </DialogContentText>
-          ) : (
-            content
+      <CnDialog open={dialogOpen}>
+        <DialogContent>
+          <Button onClick={handleClose} variant='ghost' size='icon' className='absolute top-2 right-2'>
+            <IoIosClose />
+          </Button>
+          {title && (
+            <DialogTitle id='dialog-title' className='text-center'>
+              {title}
+            </DialogTitle>
+          )}
+          <div className='relative flex items-center justify-center'>
+            {typeof content === 'string' ? (
+              <p className='text-center' id='dialog-description'>
+                {content}
+              </p>
+            ) : (
+              content
+            )}
+          </div>
+          {onConfirm && (
+            <DialogFooter className='flex justify-center'>
+              <Button onClick={handleCancel}>Cancel</Button>
+              <Button
+                onClick={() => {
+                  setDialogOpen(false);
+                  onConfirm();
+                }}
+              >
+                Confirm
+              </Button>
+            </DialogFooter>
           )}
         </DialogContent>
-        {onConfirm && (
-          <DialogActions sx={{ justifyContent: 'center' }}>
-            <Button onClick={handleCancel}>Cancel</Button>
-            <Button
-              onClick={() => {
-                setDialogOpen(false);
-                onConfirm();
-              }}
-              color='primary'
-            >
-              Confirm
-            </Button>
-          </DialogActions>
-        )}
-      </MUIDialog>
+      </CnDialog>
     </>
   );
 };
