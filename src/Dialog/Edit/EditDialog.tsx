@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { Collapse, Typography } from '@mui/material';
 import { DialogProps } from '../Dialog';
-import DynamicForm, { DynamicFormProps } from '../../Form/DynamicForm';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../../components/ui/dialog';
+import DynamicForm, { DynamicFormProps } from '@/components/jrg/DynamicForm';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 export type EditDialogProps = DialogProps & DynamicFormProps & { excludeFields?: string[] };
 
@@ -55,9 +54,9 @@ const EditDialog: React.FC<EditDialogProps> = ({
             }}
           />
         </DialogHeader>
-        <Collapse in={errorMessage !== ''}>
-          <Typography color='error'>{errorMessage}</Typography>
-        </Collapse>
+        <div className={errorMessage ? 'block' : 'hidden'}>
+          <p className='text-destructive'>{errorMessage}</p>
+        </div>
       </DialogContent>
     </Dialog>
   );
