@@ -3,7 +3,6 @@
 import { ChevronRightIcon } from '@radix-ui/react-icons';
 
 import { useCompany } from '@/auth/hooks/useUser';
-import { items } from '@/components/interactive/NavMenu';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
     SidebarGroup,
@@ -16,6 +15,7 @@ import {
     SidebarMenuSubItem,
     useSidebar,
 } from '@/components/ui/sidebar';
+import { items } from '@/interactive/NavMenu';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';

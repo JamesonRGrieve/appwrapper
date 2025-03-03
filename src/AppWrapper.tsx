@@ -1,9 +1,9 @@
 'use client';
 
+import SwitchColorblind from '@/jrg/theme/SwitchColorblind';
+import SwitchDark from '@/jrg/theme/SwitchDark';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { LuPalette as Palette } from 'react-icons/lu';
-import SwitchColorblind from '../theme/SwitchColorblind';
-import SwitchDark from '../theme/SwitchDark';
 import HeaderFooter, { HeaderFooterProps } from './AppWrapperHeaderFooter';
 
 type Menu =

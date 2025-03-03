@@ -2,16 +2,16 @@
 
 import { useTheme } from '@/components/jrg/theme/useTheme';
 import {
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuPortal,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useAppearance } from '@/jrg/theme/useAppearance';
 import { cn } from '@/lib/utils';
 import { LayoutGrid, MoonIcon } from 'lucide-react';
-import { useAppearance } from '../theme/useAppearance';
 
 type MenuItem = {
   name: string;
