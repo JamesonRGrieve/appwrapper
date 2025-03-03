@@ -4,7 +4,8 @@ import { CaretRightIcon, ComponentPlaceholderIcon } from '@radix-ui/react-icons'
 import { BadgeCheck, LogOut } from 'lucide-react';
 
 import { Appearances, Themes } from '@/appwrapper/UserMenu';
-import { getGravatarUrl } from '@/components/jrg/auth/gravatar';
+import { getGravatarUrl } from '@/auth/gravatar';
+import { useUser } from '@/auth/hooks/useUser';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
     DropdownMenu,
@@ -16,9 +17,8 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter } from 'next/navigation';
-import { Skeleton } from '../../ui/skeleton';
-import { useUser } from '../auth/hooks/useUser';
 
 export function NavUser() {
   const { isMobile } = useSidebar('left');
