@@ -1,12 +1,10 @@
 'use client';
 
-import React, { ReactNode, useState, useEffect } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { LuPalette as Palette } from 'react-icons/lu';
-import SwitchDark from '../../theme/SwitchDark';
-import SwitchColorblind from '../../theme/SwitchColorblind';
-import HeaderFooter, { HeaderFooterProps } from './HeaderFooter';
-import PopoutDrawer from './Drawer';
-import PopoutButton from './Button';
+import SwitchColorblind from '../theme/SwitchColorblind';
+import SwitchDark from '../theme/SwitchDark';
+import HeaderFooter, { HeaderFooterProps } from './AppWrapperHeaderFooter';
 
 type Menu =
   | {
@@ -185,7 +183,7 @@ const MainSection = ({
   return (
     <div
       className={`
-        flex flex-col flex-grow flex-shrink-0 relative overflow-y-auto
+        flex flex-col grow shrink-0 relative overflow-y-auto
         transition-[margin] duration-300 ease-in-out
       `}
       style={{

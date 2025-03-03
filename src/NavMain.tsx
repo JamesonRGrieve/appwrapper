@@ -1,25 +1,8 @@
 'use client';
 
-import { ChatBubbleIcon, ChevronRightIcon } from '@radix-ui/react-icons';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import {
-  BookOpen,
-  SquareLibrary,
-  HelpCircle,
-  VenetianMask,
-  Rocket,
-  Link as LuLink,
-  GraduationCap,
-  Settings,
-  Bot,
-  Users,
-  User,
-  Puzzle,
-  Building,
-} from 'lucide-react';
+import { ChevronRightIcon } from '@radix-ui/react-icons';
 
-import Link from 'next/link';
-import { useCompany } from '../../interactive/hooks';
+import { items } from '@/components/interactive/NavMenu';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
   SidebarGroup,
@@ -33,8 +16,12 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCompany } from '../auth/hooks/useUser';
 
-type Item = {
+export const navItems = items;
+export type Item = {
   title: string;
   url?: string;
   visible?: boolean;
@@ -50,129 +37,19 @@ type Item = {
   }[];
 };
 
-const items: Item[] = [
-  {
-    title: 'Chat',
-    url: '/chat',
-    icon: ChatBubbleIcon,
-    isActive: true,
-  },
-  {
-    title: 'Agent Management',
-    icon: Bot,
-    items: [
-      {
-        title: 'Prompt Library',
-        icon: SquareLibrary,
-        url: '/settings/prompts',
-      },
-      {
-        title: 'Chain Library',
-        icon: LuLink,
-        url: '/settings/chains',
-      },
-      {
-        title: 'Training',
-        icon: GraduationCap,
-        url: '/settings/training?mode=user',
-      },
-      {
-        title: 'Extensions',
-        icon: Puzzle,
-        url: '/settings/extensions',
-      },
-      {
-        title: 'Settings',
-        icon: Settings,
-        url: '/settings', // Still need to split off provider settings and add agent rename functionality on a new page
-      },
-    ],
-  },
-  {
-    title: 'Team Management',
-    icon: Users,
-    items: [
-      {
-        title: 'Team',
-        icon: Building,
-        url: '/team', // Still need a team user management page for invites and viewing who is on the team
-      },
-      {
-        title: 'Team Users',
-        icon: User,
-        url: '/team/users', // Still need a team user management page for invites and viewing who is on the team
-      },
-      {
-        title: 'Team Training',
-        icon: GraduationCap,
-        url: '/settings/training', // Still need to split this off into a separate page for Team level
-        queryParams: {
-          mode: 'company',
-        },
-      },
-      {
-        title: 'Team Extensions',
-        icon: Puzzle,
-        url: '/settings/extensions', // Still need to split this off into a separate page for Team level
-        queryParams: {
-          mode: 'company',
-        },
-      },
-      {
-        title: 'Team Settings',
-        icon: Settings,
-        url: '/settings', // Still need to split off provider settings and add agent rename functionality on a new page
-        queryParams: {
-          mode: 'company',
-        },
-      },
-    ],
-  },
-  {
-    title: 'Documentation',
-    icon: BookOpen,
-    items: [
-      {
-        title: 'Getting Started',
-        icon: Rocket,
-        url: '/docs/getting-started',
-      },
-      {
-        title: 'API Reference',
-        icon: BookOpen,
-        url: '/docs/api-reference',
-      },
-      {
-        title: 'Support',
-        icon: HelpCircle,
-        url: '/docs/support',
-      },
-      {
-        title: 'Privacy Policy',
-        icon: VenetianMask,
-        url: '/docs/privacy',
-      },
-    ],
-  },
-];
-
 export function NavMain() {
   const router = useRouter();
   const pathname = usePathname();
   const queryParams = useSearchParams();
   const { data: company } = useCompany();
   const { toggleSidebar, open } = useSidebar('left');
-  console.log(pathname);
+
   const itemsWithActiveState = items.map((item) => ({
     ...item,
     isActive: isActive(item, pathname, queryParams),
   }));
 
   // Add logic to determine if team management should be shown
-  if (false) {
-    itemsWithActiveState.find((item) => item.title === 'Team Management').visible = false;
-  }
-
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Pages</SidebarGroupLabel>
@@ -187,8 +64,8 @@ export function NavMain() {
                       side='left'
                       tooltip={item.title}
                       onClick={() => {
-                        !open && toggleSidebar();
-                        item.url && router.push(item.url);
+                        if (!open) toggleSidebar();
+                        if (item.url) router.push(item.url);
                       }}
                       className={cn(item.isActive && !item.items?.length && 'bg-muted')}
                     >

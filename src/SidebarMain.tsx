@@ -1,38 +1,30 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { getCookie } from 'cookies-next';
 import { usePathname } from 'next/navigation';
-import { ViewVerticalIcon } from '@radix-ui/react-icons';
+import { useEffect, useState } from 'react';
 
-import { AgentSelector } from '../../interactive/Selectors/agent-selector';
-import { ChatHistory } from '../../interactive/Layout/chat-history';
 import { NavMain } from '@/components/jrg/appwrapper/NavMain';
 import { NavUser } from '@/components/jrg/appwrapper/NavUser';
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenuButton,
-  SidebarRail,
-  useSidebar,
-} from '@/components/ui/sidebar';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
+import { ChatHistory } from '../../interactive/Layout/chat-history';
+import { AgentSelector } from '../../interactive/Selectors/AgentSelector';
+import { ToggleSidebar } from './ToggleSidebar';
 
 export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [hasStarted, setHasStarted] = useState(false);
-  const { toggleSidebar } = useSidebar('left');
   const pathname = usePathname();
-  if (pathname === '/' || (pathname.startsWith('/user') && pathname !== '/user/manage')) return null;
 
   useEffect(() => {
-    if (getCookie('agixt-has-started') === 'true') {
+    if (getCookie('aginteractive-has-started') === 'true') {
       setHasStarted(true);
     }
-  }, [getCookie('agixt-has-started')]);
+  }, [getCookie('aginteractive-has-started')]);
+
+  if (pathname === '/' || (pathname.startsWith('/user') && pathname !== '/user/manage')) return null;
 
   return (
-    <Sidebar collapsible='icon' {...props}>
+    <Sidebar collapsible='icon' {...props} className='hide-scrollbar'>
       <SidebarHeader>
         <AgentSelector />
       </SidebarHeader>
@@ -41,10 +33,8 @@ export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) 
         <ChatHistory />
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenuButton tooltip='Hide Sidebar' side='left' onClick={toggleSidebar}>
-          <ViewVerticalIcon />
-          <span className='sr-only'>Toggle Sidebar</span>
-        </SidebarMenuButton>
+        {/* <NotificationsNavItem /> */}
+        <ToggleSidebar side='left' />
         <NavUser />
       </SidebarFooter>
       <SidebarRail side='left' />
