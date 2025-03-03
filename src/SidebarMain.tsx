@@ -4,11 +4,11 @@ import { getCookie } from 'cookies-next';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { NavMain } from '@/components/jrg/appwrapper/NavMain';
-import { NavUser } from '@/components/jrg/appwrapper/NavUser';
+import { NavMain } from '@/appwrapper/NavMain';
+import { NavUser } from '@/appwrapper/NavUser';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
-import { ChatHistory } from '../../interactive/Layout/chat-history';
-import { AgentSelector } from '../../interactive/Selectors/AgentSelector';
+import { ChatHistory } from '@/interactive/Layout/chat-history';
+import { AgentSelector } from '@/interactive/Selectors/AgentSelector';
 import { ToggleSidebar } from './ToggleSidebar';
 
 export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) {

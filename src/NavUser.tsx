@@ -3,17 +3,17 @@
 import { CaretRightIcon, ComponentPlaceholderIcon } from '@radix-ui/react-icons';
 import { BadgeCheck, LogOut } from 'lucide-react';
 
-import { Appearances, Themes } from '@/components/jrg/appwrapper/UserMenu';
+import { Appearances, Themes } from '@/appwrapper/UserMenu';
 import { getGravatarUrl } from '@/components/jrg/auth/gravatar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
 import { useRouter } from 'next/navigation';
