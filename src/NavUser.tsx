@@ -8,13 +8,13 @@ import { getGravatarUrl } from '@/auth/gravatar';
 import { useUser } from '@/auth/hooks/useUser';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -110,6 +110,9 @@ export function NavUser() {
 }
 
 function userInitials({ firstName, lastName }: { firstName: string; lastName: string }): string | null {
-  if (!firstName || !lastName) return null;
-  return `${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`;
+  if (!firstName?.trim() || !lastName?.trim()) return null;
+  const firstInitial = firstName.trim()[0];
+  const lastInitial = lastName.trim()[0];
+  if (!firstInitial || !lastInitial) return null;
+  return `${firstInitial.toUpperCase()}${lastInitial.toUpperCase()}`;
 }
