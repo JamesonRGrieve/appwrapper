@@ -110,6 +110,7 @@ export function NavUser() {
 }
 
 function userInitials(user: { firstName?: string; lastName?: string }) {
+  if (!user) return null;
   if (!user.firstName?.trim() || !user.lastName?.trim()) return null;
   const firstInitial = user.firstName.trim()[0];
   const lastInitial = user.lastName.trim()[0];
