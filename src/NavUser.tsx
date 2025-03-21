@@ -109,10 +109,10 @@ export function NavUser() {
   );
 }
 
-function userInitials({ firstName, lastName }: { firstName: string; lastName: string }): string | null {
-  if (!firstName?.trim() || !lastName?.trim()) return null;
-  const firstInitial = firstName.trim()[0];
-  const lastInitial = lastName.trim()[0];
+function userInitials(user: { firstName?: string; lastName?: string }) {
+  if (!user.firstName?.trim() || !user.lastName?.trim()) return null;
+  const firstInitial = user.firstName.trim()[0];
+  const lastInitial = user.lastName.trim()[0];
   if (!firstInitial || !lastInitial) return null;
   return `${firstInitial.toUpperCase()}${lastInitial.toUpperCase()}`;
 }
