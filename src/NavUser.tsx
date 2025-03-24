@@ -44,17 +44,17 @@ export function NavUser() {
                 <AvatarFallback className='rounded-lg'>{userInitials(user)}</AvatarFallback>
               </Avatar>
               <div className='grid flex-1 text-sm leading-tight text-left'>
-                {!user.email ? (
+                {user && user.email ? (
                   <>
-                    <Skeleton className='w-1/2 h-3 mb-1' />
-                    <Skeleton className='h-3' />
+                    <span className='font-semibold capitalize truncate'>
+                      {user?.firstName} {user?.lastName}
+                    </span>
+                    <span className='text-xs truncate'>{user?.email}</span>
                   </>
                 ) : (
                   <>
-                    <span className='font-semibold capitalize truncate'>
-                      {user.firstName} {user.lastName}
-                    </span>
-                    <span className='text-xs truncate'>{user.email}</span>
+                    <Skeleton className='w-1/2 h-3 mb-1' />
+                    <Skeleton className='h-3' />
                   </>
                 )}
               </div>
@@ -76,9 +76,9 @@ export function NavUser() {
                 </Avatar>
                 <div className='grid flex-1 text-sm leading-tight text-left'>
                   <span className='font-semibold truncate'>
-                    {user.firstName} {user.lastName}
+                    {user?.firstName} {user?.lastName}
                   </span>
-                  <span className='text-xs truncate'>{user.email}</span>
+                  <span className='text-xs truncate'>{user?.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
