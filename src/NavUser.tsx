@@ -3,7 +3,6 @@
 import { CaretRightIcon, ComponentPlaceholderIcon } from '@radix-ui/react-icons';
 import { BadgeCheck, LogOut } from 'lucide-react';
 
-import { Appearances, Themes } from '@/appwrapper/UserMenu';
 import { getGravatarUrl } from '@/auth/gravatar';
 import { useUser } from '@/auth/hooks/useUser';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -19,6 +18,7 @@ import {
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter } from 'next/navigation';
+import { Appearances, Themes } from '@/appwrapper/UserMenu';
 
 export function NavUser() {
   const { isMobile } = useSidebar('left');
@@ -110,10 +110,16 @@ export function NavUser() {
 }
 
 function userInitials(user: { firstName?: string; lastName?: string }) {
-  if (!user) return null;
-  if (!user.firstName?.trim() || !user.lastName?.trim()) return null;
+  if (!user) {
+    return null;
+  }
+  if (!user.firstName?.trim() || !user.lastName?.trim()) {
+    return null;
+  }
   const firstInitial = user.firstName.trim()[0];
   const lastInitial = user.lastName.trim()[0];
-  if (!firstInitial || !lastInitial) return null;
+  if (!firstInitial || !lastInitial) {
+    return null;
+  }
   return `${firstInitial.toUpperCase()}${lastInitial.toUpperCase()}`;
 }

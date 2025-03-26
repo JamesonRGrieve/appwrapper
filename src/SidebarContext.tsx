@@ -20,7 +20,9 @@ export function SidebarContext({ ...props }: React.ComponentProps<typeof Sidebar
   const { content, title } = useSidebarContent();
   const pathname = usePathname();
 
-  if (!visibleOnPaths.some((path) => pathname.startsWith(path))) return null;
+  if (!visibleOnPaths.some((path) => pathname.startsWith(path))) {
+    return null;
+  }
 
   return (
     <Sidebar collapsible='icon' side='right' {...props}>

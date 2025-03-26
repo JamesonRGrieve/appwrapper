@@ -2,12 +2,12 @@
 
 import { useTheme } from '@/components/jrg/theme/useTheme';
 import {
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuPortal,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAppearance } from '@/jrg/theme/useAppearance';
 import { cn } from '@/lib/utils';
@@ -70,6 +70,8 @@ export const Appearances = () => {
 };
 
 function userInitials({ first_name, last_name }: { first_name: string; last_name: string }): string | null {
-  if (!first_name || !last_name) return null;
+  if (!first_name || !last_name) {
+    return null;
+  }
   return `${first_name[0].toUpperCase()}${last_name[0].toUpperCase()}`;
 }
