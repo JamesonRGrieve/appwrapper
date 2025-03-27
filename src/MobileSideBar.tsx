@@ -1,7 +1,7 @@
-import { LuMenu as Menu } from 'react-icons/lu';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { cn } from '@/lib/utils';
+import { cn } from '@/src/lib/utils';
+import { LuMenu as Menu } from 'react-icons/lu';
 
 type MobileSideBarProps = React.HTMLAttributes<HTMLDivElement> & {
   side?: 'top' | 'bottom' | 'left' | 'right' | null | undefined;

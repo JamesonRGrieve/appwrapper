@@ -10,7 +10,7 @@ import {
   DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAppearance } from '@/jrg/theme/useAppearance';
-import { cn } from '@/lib/utils';
+import { cn } from '@/src/lib/utils';
 import { LayoutGrid, MoonIcon } from 'lucide-react';
 
 type MenuItem = {

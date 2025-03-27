@@ -1,6 +1,6 @@
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { cn } from '@/lib/utils';
+import { cn } from '@/src/lib/utils';
 import { ReactNode } from 'react';
 
 export function SidebarHeader({ children }: { children: ReactNode }) {
