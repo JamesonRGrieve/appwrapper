@@ -1,6 +1,7 @@
 'use client';
 
-import { useTheme } from '@/components/jrg/theme/useTheme';
+import { useAppearance } from '@/components/theme/useAppearance';
+import { useTheme } from '@/components/theme/useTheme';
 import {
   DropdownMenuItem,
   DropdownMenuLabel,
@@ -9,8 +10,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useAppearance } from '@/jrg/theme/useAppearance';
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/lib/utils';
 import { LayoutGrid, MoonIcon } from 'lucide-react';
 
 type MenuItem = {

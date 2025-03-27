@@ -1,7 +1,7 @@
 'use client';
 
-import SwitchColorblind from '@/jrg/theme/SwitchColorblind';
-import SwitchDark from '@/jrg/theme/SwitchDark';
+import SwitchColorblind from '@/components/theme/SwitchColorblind';
+import SwitchDark from '@/components/theme/SwitchDark';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { LuPalette as Palette } from 'react-icons/lu';
 import HeaderFooter, { HeaderFooterProps } from './AppWrapperHeaderFooter';

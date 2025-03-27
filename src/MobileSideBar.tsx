@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/lib/utils';
 import { LuMenu as Menu } from 'react-icons/lu';
 
 type MobileSideBarProps = React.HTMLAttributes<HTMLDivElement> & {
