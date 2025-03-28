@@ -5,11 +5,11 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { NavMain } from '@/app/NavMain';
+import { NavUser } from '@/appwrapper/NavUser';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
-import { ChatHistory } from '@/interactive/Layout/chat-history';
+import { ChatHistory } from '@/interactive/components/Layout/chat-history';
 import { AgentSelector } from '@/interface/Selectors/AgentSelector';
 import { ToggleSidebar } from './ToggleSidebar';
-import { NavUser } from '@/appwrapper/NavUser';
 
 export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [hasStarted, setHasStarted] = useState(false);
