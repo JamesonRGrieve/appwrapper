@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JamesonRGrieve/jrgcomponents.git"
+    "url": "git+https://github.com/JamesonRGrieve/appwrapper.git"
   },
   "keywords": [
     "react",
@@ -27,9 +27,9 @@
   "author": "Jameson R Grieve",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/JamesonRGrieve/jrgcomponents/issues"
+    "url": "https://github.com/JamesonRGrieve/appwrapper/issues"
   },
-  "homepage": "http://jamesonrgrieve.github.io/jrgcomponents",
+  "homepage": "http://jamesonrgrieve.github.io/appwrapper",
   "files": [
     "dist"
   ],
@@ -47,21 +47,6 @@
     "./Theming/ThemeToggle": "./dist/Theming/ThemeToggle.js",
     "./Head": "./dist/Meta/Head.js",
     "./types/Theming": "./dist/types/Theming.js",
-    "./Form/Field": "./dist/MUI/Styled/FormControl/Field.js",
-    "./Dialog": "./dist/Dialog/Dialog.js",
-    "./EditDialog": "./dist/Dialog/Edit/EditDialog.js",
-    "./ImageDialog": "./dist/Dialog/Image/ImageDialog.js",
-    "./DynamicForm": "./dist/Form/DynamicForm.js",
-    "./Storybook/ComparisonGrid": "./dist/Storybook/ComparisonGrid.js",
-    "./Storybook/ReferenceGrid": "./dist/Storybook/ReferenceGrid.js",
-    "./Logging/log": "./dist/Logging/log.js",
-    "./View/Card": "./dist/View/CardView.js",
-    "./View/Table": "./dist/View/TableView.js",
-    "./View/Grid": "./dist/View/GridView.js",
-    "./SWR/ContentSWR": "./dist/SWR/ContentSWR.js",
-    "./SWR/MenuSWR": "./dist/SWR/MenuSWR.js",
-    "./Media/FeatheredImage": "./dist/Media/FeatheredImage.js",
-    "./Media/AudioPlayer": "./dist/Media/AudioPlayer.js",
     "./AppWrapper/Wrapper": "./dist/AppWrapper/AppWrapper.js",
     "./AppWrapper/Wrapper/Themed": "./dist/AppWrapper/ThemedAppWrapper.js",
     "./AppWrapper/List": "./dist/AppWrapper/List.js",
@@ -72,13 +57,6 @@
     "./AppWrapper/HeaderFooter": "./dist/AppWrapper/HeaderFooter.js",
     "./Style/Global": "./dist/Style/globals.css",
     "./QuotaSlider": "./dist/MUI/Styled/Slider/Quota.js",
-    "./AuthRouter": "./dist/Routing/Auth/Router.js",
-    "./Middleware": "./dist/Routing/Middleware/Data.js",
-    "./Middleware/Hooks": "./dist/Routing/Middleware/Hooks.js",
-    "./Config/Hooks": "./dist/Routing/Config/Hooks.js",
-    "./MFA/Authenticator": "./dist/Routing/Auth/MFA/Authenticator.js",
-    "./MFA/EMail": "./dist/Routing/Auth/MFA/EMail.js",
-    "./MFA/SMS": "./dist/Routing/Auth/MFA/SMS.js",
     "./Tabs/Panel": "./dist/Tabs/TabPanel.js",
     "./useTheme": "./dist/Theming/useTheme.js",
     "./Header": "./dist/AppWrapper/new/Header.js",
