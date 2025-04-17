@@ -31,9 +31,9 @@ export function SidebarContext({ ...props }: React.ComponentProps<typeof Sidebar
       </SidebarHeader>
       <SidebarContent>{content}</SidebarContent>
       <SidebarFooter>
-        <SidebarMenuButton tooltip='Hide Sidebar' side='right' onClick={toggleSidebar}>
+        <SidebarMenuButton tooltip='Expand Sidebar' side='right' onClick={toggleSidebar}>
           <ViewVerticalIcon />
-          <span className='sr-only'>Toggle Sidebar</span>
+          <span>Collapse Sidebar</span>
         </SidebarMenuButton>
       </SidebarFooter>
       <SidebarRail side='right' />
