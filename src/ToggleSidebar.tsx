@@ -7,9 +7,9 @@ export function ToggleSidebar({ side }: { side: 'left' | 'right' }) {
   const { toggleSidebar } = useSidebar(side);
 
   return (
-    <SidebarMenuButton onClick={toggleSidebar}>
+    <SidebarMenuButton onClick={toggleSidebar} tooltip='Expand Sidebar'>
       <ViewVerticalIcon className='w-7 h-7' />
-      <span>Toggle Sidebar</span>
+      <span>Collapse Sidebar</span>
     </SidebarMenuButton>
   );
 }
