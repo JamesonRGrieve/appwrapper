@@ -27,7 +27,7 @@ export function SidebarContext({ ...props }: React.ComponentProps<typeof Sidebar
   return (
     <Sidebar collapsible='icon' side='right' {...props}>
       <SidebarHeader>
-        <h3 className='group-data-[collapsible=icon]:hidden'>{title}</h3>
+        {title !== 'Context Sidebar' && <h3 className='group-data-[collapsible=icon]:hidden'>{title}</h3>}
       </SidebarHeader>
       <SidebarContent>{content}</SidebarContent>
       <SidebarFooter>
