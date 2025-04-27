@@ -113,7 +113,8 @@ export function NavUser() {
             </DropdownMenuGroup>
 
             <DropdownMenuSeparator />
-            <Themes />
+            {/* TODO: Unhide with theme update */}
+            {/* <Themes /> */}
             <Appearances />
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout}>
