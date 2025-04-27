@@ -4,6 +4,7 @@ import { CaretRightIcon, ComponentPlaceholderIcon } from '@radix-ui/react-icons'
 import { BadgeCheck, LogOut } from 'lucide-react';
 
 import { getGravatarUrl } from '@/auth/gravatar';
+import { useUser } from '@/auth/hooks/useUser';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -18,20 +19,28 @@ import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/c
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter } from 'next/navigation';
 import { Appearances, Themes } from '@/appwrapper/UserMenu';
+import useSWR from 'swr';
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
-import useSWR from 'swr';
 
 export function NavUser() {
   const { isMobile } = useSidebar('left');
   const router = useRouter();
+  // const { data: user } = useUser();
   const { data: user } = useSWR('/user', async () => {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URI}/v1/user`, {
       headers: {
         Authorization: `Bearer ${getCookie('jwt')}`,
       },
     });
-    return response.data.user;
+    const user = response.data.user;
+    return {
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      imageUrl: user.imageUrl,
+    };
   });
 
   const handleLogout = () => {
@@ -49,14 +58,14 @@ export function NavUser() {
               className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground group-data-[collapsible=icon]:my-2 pl-0 transition-none'
             >
               <Avatar className='w-8 h-8 rounded-lg'>
-                <AvatarImage src={getGravatarUrl(user?.email)} alt={user?.first_name} />
+                <AvatarImage src={getGravatarUrl(user?.email)} alt={user?.firstName} />
                 <AvatarFallback className='rounded-lg'>{userInitials(user)}</AvatarFallback>
               </Avatar>
               <div className='grid flex-1 text-sm leading-tight text-left'>
                 {user && user.email ? (
                   <>
                     <span className='font-semibold capitalize truncate'>
-                      {user?.first_name || user?.display_name || user?.username || ''} {user?.last_name || ''}
+                      {user?.firstName} {user?.lastName}
                     </span>
                     <span className='text-xs truncate'>{user?.email}</span>
                   </>
@@ -80,12 +89,12 @@ export function NavUser() {
             <DropdownMenuLabel className='p-0 font-normal'>
               <div className='flex items-center gap-2 px-1 py-2 text-sm text-left'>
                 <Avatar className='w-8 h-8 rounded-lg'>
-                  <AvatarImage src={getGravatarUrl(user?.email)} alt={user?.display_name} />
+                  <AvatarImage src={getGravatarUrl(user?.email)} alt={user?.name} />
                   <AvatarFallback className='rounded-lg'>{userInitials(user)}</AvatarFallback>
                 </Avatar>
                 <div className='grid flex-1 text-sm leading-tight text-left'>
                   <span className='font-semibold truncate'>
-                    {user?.first_name || user?.display_name || user?.username || ''} {user?.last_name || ''}
+                    {user?.firstName} {user?.lastName}
                   </span>
                   <span className='text-xs truncate'>{user?.email}</span>
                 </div>
@@ -118,42 +127,17 @@ export function NavUser() {
   );
 }
 
-function userInitials(user: {
-  first_name?: string;
-  last_name?: string;
-  display_name?: string;
-  username?: string;
-  email?: string;
-}) {
+function userInitials(user: { firstName?: string; lastName?: string }) {
   if (!user) {
     return null;
   }
-
-  // Try to get initials from first and last name
-  if (user.first_name?.trim() && user.last_name?.trim()) {
-    const firstInitial = user.first_name.trim()[0];
-    const lastInitial = user.last_name.trim()[0];
-    return `${firstInitial.toUpperCase()}${lastInitial.toUpperCase()}`;
+  if (!user.firstName?.trim() || !user.lastName?.trim()) {
+    return null;
   }
-
-  // Try to get initials from display name
-  if (user.display_name?.trim()) {
-    const parts = user.display_name.trim().split(' ');
-    if (parts.length >= 2) {
-      return `${parts[0][0].toUpperCase()}${parts[1][0].toUpperCase()}`;
-    }
-    return parts[0][0].toUpperCase();
+  const firstInitial = user.firstName.trim()[0];
+  const lastInitial = user.lastName.trim()[0];
+  if (!firstInitial || !lastInitial) {
+    return null;
   }
-
-  // Try to use username
-  if (user.username?.trim()) {
-    return user.username.trim()[0].toUpperCase();
-  }
-
-  // If all else fails
-  if (user.email) {
-    return user.email[0].toUpperCase();
-  }
-
-  return null;
+  return `${firstInitial.toUpperCase()}${lastInitial.toUpperCase()}`;
 }
