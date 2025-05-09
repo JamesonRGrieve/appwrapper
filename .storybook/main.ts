@@ -1,5 +1,5 @@
+import path from "path";
 import type { StorybookConfig } from '@storybook/nextjs';
-const path = require('path');
 
 const config: StorybookConfig = {
   stories: ['../src/Welcome.stories.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx|mdx)'],
@@ -25,7 +25,7 @@ const config: StorybookConfig = {
     if (config.resolve) {
       config.resolve.alias = {
         ...config.resolve.alias,
-        '@': path.resolve(__dirname, '..'),
+        '@': path.resolve('..'),
       };
     }
     return config;

@@ -11,13 +11,14 @@
     "prettier-fix": "prettier --write .",
     "fix": "prettier --write . && eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "compile": "tsc --jsx react-jsx && shx cp -r ./src/Style ./dist && npx postcss ./dist/Style/globals.css -o ./dist/Style/globals.css && shx cp ./tailwind.config.js ./dist",
-    "storybook": "storybook dev -p 6009",
+    "storybook": "storybook dev -p 6006",
     "storybook-build": "storybook build",
-    "storybook-deploy": "storybook build && gh-pages -d storybook-static"
+    "storybook-deploy": "storybook build && gh-pages -d storybook-static",
+    "build-storybook": "storybook build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JamesonRGrieve/jrgcomponents.git"
+    "url": "git+https://github.com/JamesonRGrieve/appwrapper.git"
   },
   "keywords": [
     "react",
@@ -27,9 +28,9 @@
   "author": "Jameson R Grieve",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/JamesonRGrieve/jrgcomponents/issues"
+    "url": "https://github.com/JamesonRGrieve/appwrapper/issues"
   },
-  "homepage": "http://jamesonrgrieve.github.io/jrgcomponents",
+  "homepage": "http://jamesonrgrieve.github.io/appwrapper",
   "files": [
     "dist"
   ],
@@ -47,21 +48,6 @@
     "./Theming/ThemeToggle": "./dist/Theming/ThemeToggle.js",
     "./Head": "./dist/Meta/Head.js",
     "./types/Theming": "./dist/types/Theming.js",
-    "./Form/Field": "./dist/MUI/Styled/FormControl/Field.js",
-    "./Dialog": "./dist/Dialog/Dialog.js",
-    "./EditDialog": "./dist/Dialog/Edit/EditDialog.js",
-    "./ImageDialog": "./dist/Dialog/Image/ImageDialog.js",
-    "./DynamicForm": "./dist/Form/DynamicForm.js",
-    "./Storybook/ComparisonGrid": "./dist/Storybook/ComparisonGrid.js",
-    "./Storybook/ReferenceGrid": "./dist/Storybook/ReferenceGrid.js",
-    "./Logging/log": "./dist/Logging/log.js",
-    "./View/Card": "./dist/View/CardView.js",
-    "./View/Table": "./dist/View/TableView.js",
-    "./View/Grid": "./dist/View/GridView.js",
-    "./SWR/ContentSWR": "./dist/SWR/ContentSWR.js",
-    "./SWR/MenuSWR": "./dist/SWR/MenuSWR.js",
-    "./Media/FeatheredImage": "./dist/Media/FeatheredImage.js",
-    "./Media/AudioPlayer": "./dist/Media/AudioPlayer.js",
     "./AppWrapper/Wrapper": "./dist/AppWrapper/AppWrapper.js",
     "./AppWrapper/Wrapper/Themed": "./dist/AppWrapper/ThemedAppWrapper.js",
     "./AppWrapper/List": "./dist/AppWrapper/List.js",
@@ -72,13 +58,6 @@
     "./AppWrapper/HeaderFooter": "./dist/AppWrapper/HeaderFooter.js",
     "./Style/Global": "./dist/Style/globals.css",
     "./QuotaSlider": "./dist/MUI/Styled/Slider/Quota.js",
-    "./AuthRouter": "./dist/Routing/Auth/Router.js",
-    "./Middleware": "./dist/Routing/Middleware/Data.js",
-    "./Middleware/Hooks": "./dist/Routing/Middleware/Hooks.js",
-    "./Config/Hooks": "./dist/Routing/Config/Hooks.js",
-    "./MFA/Authenticator": "./dist/Routing/Auth/MFA/Authenticator.js",
-    "./MFA/EMail": "./dist/Routing/Auth/MFA/EMail.js",
-    "./MFA/SMS": "./dist/Routing/Auth/MFA/SMS.js",
     "./Tabs/Panel": "./dist/Tabs/TabPanel.js",
     "./useTheme": "./dist/Theming/useTheme.js",
     "./Header": "./dist/AppWrapper/new/Header.js",
@@ -135,24 +114,30 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.6",
     "@storybook/addon-actions": "^8.1.4",
     "@storybook/addon-docs": "^8.1.4",
     "@storybook/addon-essentials": "^8.2.9",
     "@storybook/addon-interactions": "^8.2.9",
     "@storybook/addon-links": "^8.2.9",
+    "@storybook/addon-onboarding": "^8.6.12",
     "@storybook/addon-styling-webpack": "^1.0.0",
     "@storybook/addon-themes": "^8.2.9",
     "@storybook/blocks": "^8.1.4",
+    "@storybook/experimental-addon-test": "^8.6.12",
+    "@storybook/experimental-nextjs-vite": "^8.6.12",
     "@storybook/manager-api": "^8.2.9",
-    "@storybook/nextjs": "^8.2.9",
     "@storybook/react": "^8.1.4",
     "@storybook/test": "^8.1.4",
+    "@tailwindcss/postcss": "^4.1.5",
     "@types/node": "^20.16.5",
-    "@types/react": "^18.3.5",
+    "@types/react": "^18.3.12",
     "@types/react-google-recaptcha": "^2.1.9",
     "@types/react-simple-oauth2-login": "^0.5.5",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "@vitest/browser": "^3.1.3",
+    "@vitest/coverage-v8": "^3.1.3",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -171,6 +156,7 @@
     "eslint-plugin-unused-imports": "^3.2.0",
     "gh-pages": "^6.1.1",
     "module-alias": "^2.2.3",
+    "playwright": "^1.52.0",
     "postcss": "^8.4.45",
     "postcss-cli": "^11.0.0",
     "prettier": "^3.3.3",
@@ -178,6 +164,7 @@
     "storybook": "^8.2.9",
     "tailwindcss": "^3.4.10",
     "ts-loader": "^9.5.1",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "vitest": "^3.1.3"
   }
 }
