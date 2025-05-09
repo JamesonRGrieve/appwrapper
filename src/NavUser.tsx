@@ -3,22 +3,22 @@
 import { CaretRightIcon, ComponentPlaceholderIcon } from '@radix-ui/react-icons';
 import { BadgeCheck, LogOut } from 'lucide-react';
 
-import { Appearances, Themes } from '@/appwrapper/UserMenu';
 import { getGravatarUrl } from '@/auth/gravatar';
 import { useUser } from '@/auth/hooks/useUser';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter } from 'next/navigation';
+import { Appearances, Themes } from '@/appwrapper/UserMenu';
 
 export function NavUser() {
   const { isMobile } = useSidebar('left');
@@ -44,17 +44,17 @@ export function NavUser() {
                 <AvatarFallback className='rounded-lg'>{userInitials(user)}</AvatarFallback>
               </Avatar>
               <div className='grid flex-1 text-sm leading-tight text-left'>
-                {!user.email ? (
+                {user && user.email ? (
                   <>
-                    <Skeleton className='w-1/2 h-3 mb-1' />
-                    <Skeleton className='h-3' />
+                    <span className='font-semibold capitalize truncate'>
+                      {user?.firstName} {user?.lastName}
+                    </span>
+                    <span className='text-xs truncate'>{user?.email}</span>
                   </>
                 ) : (
                   <>
-                    <span className='font-semibold capitalize truncate'>
-                      {user.firstName} {user.lastName}
-                    </span>
-                    <span className='text-xs truncate'>{user.email}</span>
+                    <Skeleton className='w-1/2 h-3 mb-1' />
+                    <Skeleton className='h-3' />
                   </>
                 )}
               </div>
@@ -76,9 +76,9 @@ export function NavUser() {
                 </Avatar>
                 <div className='grid flex-1 text-sm leading-tight text-left'>
                   <span className='font-semibold truncate'>
-                    {user.firstName} {user.lastName}
+                    {user?.firstName} {user?.lastName}
                   </span>
-                  <span className='text-xs truncate'>{user.email}</span>
+                  <span className='text-xs truncate'>{user?.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -109,7 +109,17 @@ export function NavUser() {
   );
 }
 
-function userInitials({ firstName, lastName }: { firstName: string; lastName: string }): string | null {
-  if (!firstName || !lastName) return null;
-  return `${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`;
+function userInitials(user: { firstName?: string; lastName?: string }) {
+  if (!user) {
+    return null;
+  }
+  if (!user.firstName?.trim() || !user.lastName?.trim()) {
+    return null;
+  }
+  const firstInitial = user.firstName.trim()[0];
+  const lastInitial = user.lastName.trim()[0];
+  if (!firstInitial || !lastInitial) {
+    return null;
+  }
+  return `${firstInitial.toUpperCase()}${lastInitial.toUpperCase()}`;
 }
