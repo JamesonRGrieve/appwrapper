@@ -13,7 +13,7 @@ import { ViewVerticalIcon } from '@radix-ui/react-icons';
 import { usePathname } from 'next/navigation';
 import { useSidebarContent } from './SidebarContentManager';
 
-const visibleOnPaths = ['/chat', '/settings/prompts', '/settings/chains', '/settings', '/resident/'];
+const visibleOnPaths = ['/chat', '/settings/prompts', '/settings/chains', '/settings', '/resident/', '/team'];
 
 export function SidebarContext({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { toggleSidebar } = useSidebar('right');
@@ -27,7 +27,7 @@ export function SidebarContext({ ...props }: React.ComponentProps<typeof Sidebar
   return (
     <Sidebar collapsible='icon' side='right' {...props}>
       <SidebarHeader>
-        <h3 className='group-data-[collapsible=icon]:hidden'>{title}</h3>
+        {title !== 'Context Sidebar' && <h3 className='group-data-[collapsible=icon]:hidden'>{title}</h3>}
       </SidebarHeader>
       <SidebarContent>{content}</SidebarContent>
       <SidebarFooter>

@@ -19,11 +19,29 @@ import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/c
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter } from 'next/navigation';
 import { Appearances, Themes } from '@/appwrapper/UserMenu';
+import useSWR from 'swr';
+import axios from 'axios';
+import { getCookie } from 'cookies-next';
 
 export function NavUser() {
   const { isMobile } = useSidebar('left');
   const router = useRouter();
-  const { data: user } = useUser();
+  // const { data: user } = useUser();
+  const { data: user } = useSWR('/user', async () => {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URI}/v1/user`, {
+      headers: {
+        Authorization: `Bearer ${getCookie('jwt')}`,
+      },
+    });
+    const user = response.data.user;
+    return {
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      imageUrl: user.imageUrl,
+    };
+  });
 
   const handleLogout = () => {
     router.push('/user/logout');
@@ -95,7 +113,8 @@ export function NavUser() {
             </DropdownMenuGroup>
 
             <DropdownMenuSeparator />
-            <Themes />
+            {/* TODO: Unhide with theme update */}
+            {/* <Themes /> */}
             <Appearances />
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout}>
