@@ -7,8 +7,6 @@ import { useEffect, useState } from 'react';
 import { NavMain } from '@/app/NavMain';
 import { NavUser } from '@/appwrapper/NavUser';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
-import { ChatHistory } from '@/interactive/components/Layout/chat-history';
-import { AgentSelector } from '@/interface/Selectors/AgentSelector';
 import { ToggleSidebar } from './ToggleSidebar';
 
 export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -27,12 +25,9 @@ export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) 
 
   return (
     <Sidebar collapsible='icon' {...props} className='hide-scrollbar'>
-      <SidebarHeader>
-        <AgentSelector />
-      </SidebarHeader>
+      <SidebarHeader></SidebarHeader>
       <SidebarContent>
         <NavMain />
-        <ChatHistory />
       </SidebarContent>
       <SidebarFooter>
         {/* <NotificationsNavItem /> */}
