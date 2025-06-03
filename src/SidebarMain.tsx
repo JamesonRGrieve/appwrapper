@@ -9,6 +9,8 @@ import { NavUser } from '@/appwrapper/NavUser';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
 import { ToggleSidebar } from './ToggleSidebar';
 
+import { ChatHistory } from '@/interactive/components/Layout/chat-history';
+
 export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [hasStarted, setHasStarted] = useState(false);
   const pathname = usePathname();
@@ -28,6 +30,7 @@ export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) 
       <SidebarHeader></SidebarHeader>
       <SidebarContent>
         <NavMain />
+        <ChatHistory/>
       </SidebarContent>
       <SidebarFooter>
         {/* <NotificationsNavItem /> */}
