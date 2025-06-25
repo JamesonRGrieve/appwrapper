@@ -10,6 +10,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } fr
 import { ToggleSidebar } from './ToggleSidebar';
 
 import { ChatHistory } from '@/interactive/components/Layout/chat-history';
+import { FaRobot } from 'react-icons/fa';
 
 export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [hasStarted, setHasStarted] = useState(false);
@@ -27,10 +28,12 @@ export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) 
 
   return (
     <Sidebar collapsible='icon' {...props} className='hide-scrollbar'>
-      <SidebarHeader></SidebarHeader>
+      <SidebarHeader>
+        <SidebarLogo />
+      </SidebarHeader>
       <SidebarContent>
         <NavMain />
-        <ChatHistory/>
+        <ChatHistory />
       </SidebarContent>
       <SidebarFooter>
         {/* <NotificationsNavItem /> */}
@@ -39,5 +42,19 @@ export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) 
       </SidebarFooter>
       <SidebarRail side='left' />
     </Sidebar>
+  );
+}
+
+// Temporary sidebar Logo until agent selector is implemented
+export function SidebarLogo() {
+  return (
+    <div className='flex items-center gap-2 p-2'>
+      <div className='flex items-center justify-center rounded-lg aspect-square size-8 bg-sidebar-primary text-sidebar-primary-foreground'>
+        <FaRobot className='size-4' />
+      </div>
+      <div className='grid flex-1 text-sm leading-tight text-left'>
+        <span className='font-semibold text-lg truncate'>{process.env.NEXT_PUBLIC_APP_NAME ?? 'App Name'}</span>
+      </div>
+    </div>
   );
 }
