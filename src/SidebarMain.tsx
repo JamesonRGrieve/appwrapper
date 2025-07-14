@@ -9,10 +9,9 @@ import { NavUser } from '@/appwrapper/NavUser';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
 import { ToggleSidebar } from './ToggleSidebar';
 
-import { ChatHistory } from '@/interactive/components/Layout/chat-history';
 import { FaRobot } from 'react-icons/fa';
 
-export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function SidebarMain({ children, ...props }: React.ComponentProps<typeof Sidebar> & { children?: React.ReactNode }) {
   const [hasStarted, setHasStarted] = useState(false);
   const pathname = usePathname();
 
@@ -33,7 +32,7 @@ export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) 
       </SidebarHeader>
       <SidebarContent>
         <NavMain />
-        <ChatHistory />
+        {children}
       </SidebarContent>
       <SidebarFooter>
         {/* <NotificationsNavItem /> */}
