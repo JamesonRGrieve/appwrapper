@@ -106,13 +106,13 @@ export function NavUser() {
                 <BadgeCheck className='mr-2 size-4' />
                 Account
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              {/* <DropdownMenuItem>
                 <ComponentPlaceholderIcon className='mr-2 size-4' />
                 Billing
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
             </DropdownMenuGroup>
 
-            <DropdownMenuSeparator />
+            {/* <DropdownMenuSeparator /> */}
             {/* TODO: Unhide with theme update */}
             {/* <Themes /> */}
             <Appearances />
