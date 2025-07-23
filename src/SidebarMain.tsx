@@ -47,7 +47,7 @@ export function SidebarMain({ children, ...props }: React.ComponentProps<typeof 
 // Temporary sidebar Logo until agent selector is implemented
 export function SidebarLogo() {
   return (
-    <div className='flex items-center gap-2 p-2'>
+    <div className='flex items-center gap-2 p-0'>
       <div className='flex items-center justify-center rounded-lg aspect-square size-8 bg-sidebar-primary text-sidebar-primary-foreground'>
         <FaRobot className='size-4' />
       </div>
