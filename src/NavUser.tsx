@@ -27,7 +27,7 @@ export function NavUser() {
   const { isMobile } = useSidebar('left');
   const router = useRouter();
   // const { data: user } = useUser();
-  const { data: user } = useSWR('/user', async () => {
+  const { data: user } = useSWR('/user-nav', async () => {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URI}/v1/user`, {
       headers: {
         Authorization: `Bearer ${getCookie('jwt')}`,
