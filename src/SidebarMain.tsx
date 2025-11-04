@@ -9,7 +9,9 @@ import { NavUser } from '@/appwrapper/NavUser';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
 import { ToggleSidebar } from './ToggleSidebar';
 
-export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) {
+import { FaRobot } from 'react-icons/fa';
+
+export function SidebarMain({ children, ...props }: React.ComponentProps<typeof Sidebar> & { children?: React.ReactNode }) {
   const [hasStarted, setHasStarted] = useState(false);
   const pathname = usePathname();
 
@@ -25,9 +27,12 @@ export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) 
 
   return (
     <Sidebar collapsible='icon' {...props} className='hide-scrollbar'>
-      <SidebarHeader></SidebarHeader>
+      <SidebarHeader>
+        <SidebarLogo />
+      </SidebarHeader>
       <SidebarContent>
         <NavMain />
+        {children}
       </SidebarContent>
       <SidebarFooter>
         {/* <NotificationsNavItem /> */}
@@ -36,5 +41,19 @@ export function SidebarMain({ ...props }: React.ComponentProps<typeof Sidebar>) 
       </SidebarFooter>
       <SidebarRail side='left' />
     </Sidebar>
+  );
+}
+
+// Temporary sidebar Logo until agent selector is implemented
+export function SidebarLogo() {
+  return (
+    <div className='flex items-center gap-2 p-0'>
+      <div className='flex items-center justify-center rounded-lg aspect-square size-8 bg-sidebar-primary text-sidebar-primary-foreground'>
+        <FaRobot className='size-4' />
+      </div>
+      <div className='grid flex-1 text-sm leading-tight text-left'>
+        <span className='font-semibold text-lg truncate'>{process.env.NEXT_PUBLIC_APP_NAME ?? 'App Name'}</span>
+      </div>
+    </div>
   );
 }

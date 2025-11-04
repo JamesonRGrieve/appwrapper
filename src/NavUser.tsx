@@ -27,7 +27,7 @@ export function NavUser() {
   const { isMobile } = useSidebar('left');
   const router = useRouter();
   // const { data: user } = useUser();
-  const { data: user } = useSWR('/user', async () => {
+  const { data: user } = useSWR('/user-nav', async () => {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URI}/v1/user`, {
       headers: {
         Authorization: `Bearer ${getCookie('jwt')}`,
@@ -37,9 +37,9 @@ export function NavUser() {
     return {
       id: user.id,
       email: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      imageUrl: user.imageUrl,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      imageUrl: user.image_url,
     };
   });
 
@@ -89,7 +89,7 @@ export function NavUser() {
             <DropdownMenuLabel className='p-0 font-normal'>
               <div className='flex items-center gap-2 px-1 py-2 text-sm text-left'>
                 <Avatar className='w-8 h-8 rounded-lg'>
-                  <AvatarImage src={getGravatarUrl(user?.email)} alt={user?.name} />
+                  <AvatarImage src={getGravatarUrl(user?.email)} alt={user?.firstName} />
                   <AvatarFallback className='rounded-lg'>{userInitials(user)}</AvatarFallback>
                 </Avatar>
                 <div className='grid flex-1 text-sm leading-tight text-left'>
@@ -106,13 +106,13 @@ export function NavUser() {
                 <BadgeCheck className='mr-2 size-4' />
                 Account
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              {/* <DropdownMenuItem>
                 <ComponentPlaceholderIcon className='mr-2 size-4' />
                 Billing
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
             </DropdownMenuGroup>
 
-            <DropdownMenuSeparator />
+            {/* <DropdownMenuSeparator /> */}
             {/* TODO: Unhide with theme update */}
             {/* <Themes /> */}
             <Appearances />
