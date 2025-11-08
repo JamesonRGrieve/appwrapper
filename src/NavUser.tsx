@@ -19,29 +19,16 @@ import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/c
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter } from 'next/navigation';
 import { Appearances, Themes } from '@/appwrapper/UserMenu';
-import useSWR from 'swr';
-import axios from 'axios';
-import { getCookie } from 'cookies-next';
+// useUser provides a stable SWR-backed source for current user information
 
 export function NavUser() {
   const { isMobile } = useSidebar('left');
   const router = useRouter();
-  // const { data: user } = useUser();
-  const { data: user } = useSWR('/user-nav', async () => {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URI}/v1/user`, {
-      headers: {
-        Authorization: `Bearer ${getCookie('jwt')}`,
-      },
-    });
-    const user = response.data.user;
-    return {
-      id: user.id,
-      email: user.email,
-      firstName: user.first_name,
-      lastName: user.last_name,
-      imageUrl: user.image_url,
-    };
-  });
+  // Prefer the shared `useUser` hook which already handles JWT gating, fallback data
+  // and GraphQL fetching. This prevents redundant/looping fetches and gives us
+  // a single source of truth for user data across the app.
+  const { data: user, isValidating } = useUser();
+  const hasUser = Boolean(user && user.email);
 
   const handleLogout = () => {
     router.push('/user/logout');
@@ -50,79 +37,90 @@ export function NavUser() {
   return (
     <SidebarMenu>
       <SidebarMenuItem>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              side='left'
-              size='lg'
-              className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground group-data-[collapsible=icon]:my-2 pl-0 transition-none'
-            >
-              <Avatar className='w-8 h-8 rounded-lg'>
-                <AvatarImage src={getGravatarUrl(user?.email)} alt={user?.firstName} />
-                <AvatarFallback className='rounded-lg'>{userInitials(user)}</AvatarFallback>
-              </Avatar>
-              <div className='grid flex-1 text-sm leading-tight text-left'>
-                {user && user.email ? (
-                  <>
-                    <span className='font-semibold capitalize truncate'>
-                      {user?.firstName} {user?.lastName}
-                    </span>
-                    <span className='text-xs truncate'>{user?.email}</span>
-                  </>
-                ) : (
-                  <>
-                    <Skeleton className='w-1/2 h-3 mb-1' />
-                    <Skeleton className='h-3' />
-                  </>
-                )}
-              </div>
-
-              <CaretRightIcon className='ml-auto size-4' />
-            </SidebarMenuButton>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className='w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg'
-            side={isMobile ? 'bottom' : 'right'}
-            align='end'
-            sideOffset={4}
-          >
-            <DropdownMenuLabel className='p-0 font-normal'>
-              <div className='flex items-center gap-2 px-1 py-2 text-sm text-left'>
+        {hasUser || isValidating ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <SidebarMenuButton
+                side='left'
+                size='lg'
+                className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground group-data-[collapsible=icon]:my-2 pl-0 transition-none'
+              >
                 <Avatar className='w-8 h-8 rounded-lg'>
                   <AvatarImage src={getGravatarUrl(user?.email)} alt={user?.firstName} />
                   <AvatarFallback className='rounded-lg'>{userInitials(user)}</AvatarFallback>
                 </Avatar>
                 <div className='grid flex-1 text-sm leading-tight text-left'>
-                  <span className='font-semibold truncate'>
-                    {user?.firstName} {user?.lastName}
-                  </span>
-                  <span className='text-xs truncate'>{user?.email}</span>
+                  {user && user.email ? (
+                    <>
+                      <span className='font-semibold capitalize truncate'>
+                        {user?.firstName} {user?.lastName}
+                      </span>
+                      <span className='text-xs truncate'>{user?.email}</span>
+                    </>
+                  ) : (
+                    // Loading state: show skeleton while validating
+                    <>
+                      <Skeleton className='w-1/2 h-3 mb-1' />
+                      <Skeleton className='h-3' />
+                    </>
+                  )}
                 </div>
-              </div>
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem onClick={() => router.push('/user/manage')}>
-                <BadgeCheck className='mr-2 size-4' />
-                Account
-              </DropdownMenuItem>
-              {/* <DropdownMenuItem>
-                <ComponentPlaceholderIcon className='mr-2 size-4' />
-                Billing
-              </DropdownMenuItem> */}
-            </DropdownMenuGroup>
 
-            {/* <DropdownMenuSeparator /> */}
-            {/* TODO: Unhide with theme update */}
-            {/* <Themes /> */}
-            <Appearances />
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleLogout}>
-              <LogOut className='mr-2 size-4' />
-              Log out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+                <CaretRightIcon className='ml-auto size-4' />
+              </SidebarMenuButton>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className='w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg'
+              side={isMobile ? 'bottom' : 'right'}
+              align='end'
+              sideOffset={4}
+            >
+              <DropdownMenuLabel className='p-0 font-normal'>
+                <div className='flex items-center gap-2 px-1 py-2 text-sm text-left'>
+                  <Avatar className='w-8 h-8 rounded-lg'>
+                    <AvatarImage src={getGravatarUrl(user?.email)} alt={user?.firstName} />
+                    <AvatarFallback className='rounded-lg'>{userInitials(user)}</AvatarFallback>
+                  </Avatar>
+                  <div className='grid flex-1 text-sm leading-tight text-left'>
+                    <span className='font-semibold truncate'>
+                      {user?.firstName} {user?.lastName}
+                    </span>
+                    <span className='text-xs truncate'>{user?.email}</span>
+                  </div>
+                </div>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem onClick={() => router.push('/user/manage')}>
+                  <BadgeCheck className='mr-2 size-4' />
+                  Account
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+
+              <Appearances />
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleLogout}>
+                <LogOut className='mr-2 size-4' />
+                Log out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <SidebarMenuButton
+            side='left'
+            size='lg'
+            className='group-data-[collapsible=icon]:my-2 pl-0'
+            onClick={() => router.push('/user/login')}
+          >
+            <Avatar className='w-8 h-8 rounded-lg'>
+              <AvatarFallback className='rounded-lg'>SI</AvatarFallback>
+            </Avatar>
+            <div className='grid flex-1 text-sm leading-tight text-left'>
+              <span className='font-semibold truncate'>Sign in</span>
+            </div>
+            <CaretRightIcon className='ml-auto size-4' />
+          </SidebarMenuButton>
+        )}
       </SidebarMenuItem>
     </SidebarMenu>
   );
